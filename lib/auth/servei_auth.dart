@@ -14,7 +14,7 @@ class ServeiAuth {
       );
 
       return credencialUsuari;
-      
+
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -24,4 +24,7 @@ class ServeiAuth {
   // Fer registre
 
   // Fer logout
+  Future<void> tancarSessio() async {
+    return await _auth.signOut();
+  }
 }
