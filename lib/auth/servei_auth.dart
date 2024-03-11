@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ServeiAuth {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Fer login
   Future<UserCredential> loginAmbEmailIPassword(String email, password) async {
@@ -12,6 +14,11 @@ class ServeiAuth {
         email: email, 
         password: password,
       );
+
+      _firestore.collection("Usuaris").doc(credencialUsuari.user!.uid).set({
+        "uid": credencialUsuari.user!.uid,
+        "email": email,
+      });
 
       return credencialUsuari;
 
@@ -29,6 +36,11 @@ class ServeiAuth {
         email: email, 
         password: password,
       );
+
+      _firestore.collection("Usuaris").doc(credencialUsuari.user!.uid).set({
+        "uid": credencialUsuari.user!.uid,
+        "email": email,
+      });
 
       return credencialUsuari;
 
