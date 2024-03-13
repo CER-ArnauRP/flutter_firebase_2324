@@ -5,6 +5,7 @@ import 'package:flutter_firebase_2324/auth/servei_auth.dart';
 import 'package:flutter_firebase_2324/chat/servei_chat.dart';
 import 'package:flutter_firebase_2324/components/drawer_aplicacio.dart';
 import 'package:flutter_firebase_2324/components/item_usuari.dart';
+import 'package:flutter_firebase_2324/pagines/pagina_chat.dart';
 
 class PaginaInici extends StatelessWidget {
   PaginaInici({super.key});
@@ -55,7 +56,7 @@ class PaginaInici extends StatelessWidget {
         },
       ),
     );
-  } // O fora de la classe principal?
+  }
 
   Widget _construirItemLlista(Map<String, dynamic> dadesUsuari, BuildContext context) {
 
@@ -64,7 +65,15 @@ class PaginaInici extends StatelessWidget {
       return ItemUsuari(
         text: dadesUsuari["email"], 
         onTap: () {
-          
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (context) => PaginaChat(
+                emailDeAmbQuiParlem: dadesUsuari["email"], 
+                idDeAmbQuiParlem: dadesUsuari["uid"],
+              ),
+            ),
+          );
         },
       );
     } else {
