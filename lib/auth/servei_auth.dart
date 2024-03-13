@@ -54,4 +54,9 @@ class ServeiAuth {
   Future<void> tancarSessio() async {
     return await _auth.signOut();
   }
+
+  // Get usuari actual
+  User? getUsuariActual() {
+    return _auth.currentUser;
+  }
 }
