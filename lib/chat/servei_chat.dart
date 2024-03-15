@@ -17,4 +17,16 @@ class ServeiChat {
       }).toList();
     });
   }
+
+  Stream<QuerySnapshot> getMissatges(String idUsuariActual, idUsuariInterlocutor) {
+
+    List<String> idsUsuaris = [idUsuariActual, idUsuariInterlocutor];
+    idsUsuaris.sort();
+    String idSalaChat = idsUsuaris.join("_");
+
+    return _firestore.collection("sales_chat").doc(idSalaChat)
+      .collection("missatges")
+      .orderBy("timestamp", descending: false)
+      .snapshots();
+  }
 }

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_2324/auth/servei_auth.dart';
+import 'package:flutter_firebase_2324/chat/servei_chat.dart';
 
 class PaginaChat extends StatefulWidget {
 
@@ -17,6 +20,18 @@ class PaginaChat extends StatefulWidget {
 }
 
 class _PaginaChatState extends State<PaginaChat> {
+
+  final ServeiAuth _serveiAuth = ServeiAuth();
+  final ServeiChat _serveiChat = ServeiChat();
+  final TextEditingController _controllerMissatge = TextEditingController();
+
+  void enviarMissatge() async {
+
+    if (_controllerMissatge.text.isNotEmpty) {
+      
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +54,68 @@ class _PaginaChatState extends State<PaginaChat> {
 
   Widget _construirLlistaMissatges() {
 
-    return Container();
+    String idUsuariActual = _serveiAuth.getUsuariActual()!.uid;
+
+    return StreamBuilder(
+      stream: _serveiChat.getMissatges(widget.idDeAmbQuiParlem, idUsuariActual), 
+      builder: (context, snapshot) {
+        // Errors.
+        if (snapshot.hasError) {
+          return const Text("Error");
+        }
+
+        // Carregant.
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Carregant...");
+        }
+
+        // Retornar llista.
+        return ListView(
+          children: snapshot.data!.docs.map((document) => _construirItemMissatge(document)).toList(),
+        );
+      },
+    );
+  }
+
+  Widget _construirItemMissatge(DocumentSnapshot documentSnapshot) {
+
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
+    // Si és usuari actual.
+    bool esUsuariActual = data["idDeLAutor"] == _serveiAuth.getUsuariActual()!.uid;
+
+    var aliniament = esUsuariActual ? Alignment.centerRight : Alignment.centerLeft;
+
+    return Container(
+      alignment: aliniament,
+      child: Text(data["missatge"]),
+    );
   }
 
   Widget _construirZonaInputMissatge() {
 
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, bottom: 50),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(),
+          ),
+
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.orange,
+              shape: BoxShape.circle,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_upward),
+              color: Colors.white,
+              onPressed: enviarMissatge,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
