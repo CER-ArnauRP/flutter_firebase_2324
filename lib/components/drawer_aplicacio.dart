@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_firebase_2324/auth/servei_auth.dart';
 import 'package:flutter_firebase_2324/pagines/pagina_configuracio.dart';
 import 'package:flutter_firebase_2324/pagines/pagina_inici.dart';
@@ -10,14 +8,14 @@ class DrawerAplicacio extends StatelessWidget {
 
   void ferLogout() {
 
-    final ServeiAuth _auth = ServeiAuth();
-    _auth.tancarSessio();
+    final ServeiAuth auth = ServeiAuth();
+    auth.tancarSessio();
   }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(255, 255, 240, 218),
+      backgroundColor: const Color.fromARGB(255, 255, 240, 218),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -34,13 +32,13 @@ class DrawerAplicacio extends StatelessWidget {
 
               // Opció Pàgina inicial.
               ListTile(
-                title: Text(
+                title: const Text(
                   "INCICI",
                   style: TextStyle(
                     color: Color.fromARGB(255, 255, 147, 108),
                   ),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.home,
                   color: Color.fromARGB(255, 255, 147, 108),
                 ),
@@ -55,13 +53,13 @@ class DrawerAplicacio extends StatelessWidget {
 
               // Opció Configuració.
               ListTile(
-                title: Text(
+                title: const Text(
                   "CONFIGURACIÓ",
                   style: TextStyle(
                     color: Color.fromARGB(255, 255, 147, 108),
                   ),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.settings,
                   color: Color.fromARGB(255, 255, 147, 108),
                 ),
@@ -69,7 +67,7 @@ class DrawerAplicacio extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.push(
                     context, 
-                    MaterialPageRoute(builder: (context) => PaginaConfiguracio(), ),
+                    MaterialPageRoute(builder: (context) => const PaginaConfiguracio(), ),
                   );
                 },
               ),
@@ -79,19 +77,19 @@ class DrawerAplicacio extends StatelessWidget {
             children: [
               // Opció Tanca sessió.
               ListTile(
-                title: Text(
+                title: const Text(
                   "TANCAR SESSIÓ",
                   style: TextStyle(
                     color: Color.fromARGB(255, 255, 147, 108),
                   ),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.logout,
                   color: Color.fromARGB(255, 255, 147, 108),
                 ),
                 onTap: ferLogout,
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
             ],
           ),
         ],

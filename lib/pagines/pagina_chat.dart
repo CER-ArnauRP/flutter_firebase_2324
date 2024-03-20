@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_2324/auth/servei_auth.dart';
 import 'package:flutter_firebase_2324/chat/servei_chat.dart';
@@ -28,7 +27,9 @@ class _PaginaChatState extends State<PaginaChat> {
   void enviarMissatge() async {
 
     if (_controllerMissatge.text.isNotEmpty) {
-      
+      await _serveiChat.enviarMissatge(widget.idDeAmbQuiParlem, _controllerMissatge.text);
+
+      _controllerMissatge.clear();
     }
   }
 
@@ -98,7 +99,7 @@ class _PaginaChatState extends State<PaginaChat> {
       padding: const EdgeInsets.only(left: 25, bottom: 50),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: TextField(),
           ),
 
