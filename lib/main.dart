@@ -47,3 +47,27 @@ class MainApp extends StatelessWidget {
     - flutter pub add firebase_core
 
 */
+
+/*
+Imatges:
+========
+
+1) Habilitar Firebase Storage en el projecte vinculat de Firebase.
+  - Es pot posar les reglas a true el write i read.
+
+2) Descarreguem dependència de Firebase Storage al projecte.
+  - flutter pub add firebase_storage
+
+3) Desccarreguem una dependència per seleccionar imatges (un picker).
+  - N'hi ha diversos.
+  - Fem servir el image_picker
+    - flutter pub add image_picker
+
+4) Perquè funcioni en Android:
+  - Anar a android > app > src > main > AndroidManifest.xml
+    Escriure just abans del tag <aplication> (fora d'aplication):
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+
+*/
